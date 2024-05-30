@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  cassandra:
+    image: cassandra:latest
+    container_name: cassandra
+    ports:
+      - "7000:7000"
+      - "9042:9042"
+    environment:
+      CASSANDRA_CLUSTER_NAME: "Cluster01"
+      CASSANDRA_NUM_TOKENS: "256"
+      CASSANDRA_DC: "DC1"
+      CASSANDRA_RACK: "RAC1"
+      CASSANDRA_ENDPOINT_SNITCH: "GossipingPropertyFileSnitch"
+      CASSANDRA_SEEDS: "cassandra"
+      CASSANDRA_AUTHENTICATOR: "PasswordAuthenticator"
+      CASSANDRA_USER: "admin"
+      CASSANDRA_PASSWORD: "pwd01"
+    volumes:
+      - cassandra_data:/var/lib/cassandra
+
+volumes:
+  cassandra_data:
+    driver: local
